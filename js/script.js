@@ -18,6 +18,7 @@ Create the `showPage` function
 This function will create and insert/append the elements needed to display a "page" of nine students
 */
 
+
 function showPage(list,page){
   
    // the start index and the end index of the list items to be displayed on the given page
@@ -53,7 +54,7 @@ function showPage(list,page){
 
 }//end showPage function
 
-showPage(data,3);
+showPage(data,1);
 
 
 
@@ -61,6 +62,68 @@ showPage(data,3);
 Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
+
+const ULB = document.getElementsByClassName("link-list");
+
+function addPagination(list){
+   
+   
+   console.log("link-list",ULB);
+   const number_of_buttons = Math.ceil(list.length/9);
+   console.log("number of buttons",number_of_buttons);
+   
+   const li = document.createElement("li");
+   const button =createButton(li);
+   button.className ="active";
+   button.textContent ="1";
+   ULB[0].appendChild(li);
+
+   for (let i = 1 ; i < number_of_buttons; i++){
+      const li = document.createElement("li");
+      const button =createButton(li);
+      button.textContent = i+1;
+      ULB[0].appendChild(li);
+
+   }
+   
+
+}
+function createButton(li){
+ 
+   const button =document.createElement("button");
+   button.type ="button";
+   li.appendChild(button);
+   return button;
+
+}
+
+addPagination(data);
+
+ULB[0].addEventListener("click",(e)=>{
+
+const li_old = document.getElementsByClassName("student-item");
+if (e.target.tagName ==="BUTTON"){
+
+   const button =e.target;
+   const current_page = button.textContent; 
+   const start_Index =0;
+   const end_Index = 9;
+   
+   button.className ="active";
+   for (let i = start_Index ; i < end_Index ; i++){
+      li_old[i].style.display = "none";
+
+   }
+   showPage(data,current_page);
+
+
+
+}
+
+
+});
+
+
 
 
 
