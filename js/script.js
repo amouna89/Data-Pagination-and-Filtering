@@ -20,7 +20,7 @@ This function will create and insert/append the elements needed to display a "pa
 
 
 function showPage(list,page){
-  
+
    // the start index and the end index of the list items to be displayed on the given page
    const start_Index = (page*9)-9;
    const end_Index = (page*9);
@@ -29,7 +29,8 @@ function showPage(list,page){
    const student_list =ul[0];
    var HTML =``;
 
- 
+   
+
    for (let i = start_Index; i < end_Index ; i++ ){
 
       HTML +=` <li class="student-item cf">
@@ -45,16 +46,16 @@ function showPage(list,page){
 
    }//end for
 
-   console.log("html string",HTML);
-   console.log("end index",end_Index);
-
    student_list.insertAdjacentHTML('beforeend',HTML);
    // element.insertAdjacentHTML(position, text);
    // 'beforeend' : Juste à l'intérieur de l'element , après son dernier enfant.
 
 }//end showPage function
 
-showPage(data,1);
+//show the data when loading the page the first time
+ showPage(data,1);
+//  console.log("nom d'utilisateur" ,data.length);
+//  console.log(data[36]);
 
 
 
@@ -67,11 +68,7 @@ const ULB = document.getElementsByClassName("link-list");
 
 function addPagination(list){
    
-   
-   console.log("link-list",ULB);
    const number_of_buttons = Math.ceil(list.length/9);
-   console.log("number of buttons",number_of_buttons);
-   
    const li = document.createElement("li");
    const button =createButton(li);
    button.className ="active";
@@ -102,21 +99,33 @@ addPagination(data);
 ULB[0].addEventListener("click",(e)=>{
 
 const li_old = document.getElementsByClassName("student-item");
+const buttons =document.getElementsByTagName("button");
 if (e.target.tagName ==="BUTTON"){
 
-   const button =e.target;
-   const current_page = button.textContent; 
-   const start_Index =0;
-   const end_Index = 9;
-   
-   button.className ="active";
-   for (let i = start_Index ; i < end_Index ; i++){
-      li_old[i].style.display = "none";
+   const current_button =e.target;
+   const current_page = current_button.textContent; 
+   console.log("button textContent",current_page);
 
-   }
-   showPage(data,current_page);
+   const start_Index = ((current_page-1)*9)-9;
+   const end_Index = ((current_page-1)*9);
+   console.log("start_Index",start_Index);
+   console.log("end_Index",end_Index);
+   for (let i= 0;i < buttons.length; i++){
+       buttons[i].classList.remove("active");
+      
+          }
+
+    current_button.className ="active";
+
+ showPage(data,current_page);
+  
+ for( let i=start_Index; i<end_Index;i++ ){
+// //  li_old[i].style.display="none";
+ li_old[i].remove();
+ }
 
 
+ 
 
 }
 
