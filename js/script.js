@@ -29,6 +29,7 @@ function showPage(list,page){
 
    student_list = document.getElementsByClassName("student-list");
 
+
    for (let i = start_Index; i < end_Index ; i++ ){
 
       HTML +=` <li class="student-item cf">
@@ -43,7 +44,6 @@ function showPage(list,page){
     </li>`;
 
    }//end for
-
    student_list[0].insertAdjacentHTML('beforeend',HTML);
    // element.insertAdjacentHTML(position, text);
    // 'beforeend' : Juste à l'intérieur de l'element , après son dernier enfant.
@@ -97,20 +97,24 @@ addPagination(data);
    var student_listItems = ``;
 
 student_listItems = document.getElementsByClassName("student-item");
-
 const buttons = document.getElementsByTagName("button");
-
 if (e.target.tagName ==="BUTTON"){
 
    const current_button =e.target;
    const current_page = current_button.textContent; 
 
-   for (let i= 0;i < buttons.length; i++){
-      
-       buttons[i].classList.remove("active");  
+   
+   // buttons.forEach(myFunction)
+   // function myFunction(item, index, arr) {
+    
+   //   arr[index].classList.remove("active");
+   // }
+   
+   for (let i=0 ; i < buttons.length ; i++){
+      buttons[i].classList.remove("active");
+   }
 
-          }
-          
+ //add the active class to the current button         
 current_button.className ="active";
 
  showPage(data,current_page);
