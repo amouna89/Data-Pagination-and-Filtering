@@ -24,12 +24,10 @@ function showPage(list,page){
    // the start index and the end index of the list items to be displayed on the given page
    const start_Index = (page*9)-9;
    const end_Index = (page*9);
-
-   const ul = document.getElementsByClassName("student-list");
-   const student_list =ul[0];
+   var student_list =``;
    var HTML =``;
 
-   
+   student_list = document.getElementsByClassName("student-list");
 
    for (let i = start_Index; i < end_Index ; i++ ){
 
@@ -46,7 +44,7 @@ function showPage(list,page){
 
    }//end for
 
-   student_list.insertAdjacentHTML('beforeend',HTML);
+   student_list[0].insertAdjacentHTML('beforeend',HTML);
    // element.insertAdjacentHTML(position, text);
    // 'beforeend' : Juste à l'intérieur de l'element , après son dernier enfant.
 
@@ -54,17 +52,14 @@ function showPage(list,page){
 
 //show the data when loading the page the first time
  showPage(data,1);
-//  console.log("nom d'utilisateur" ,data.length);
-//  console.log(data[36]);
 
-
-
+ 
 /*
 Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
 
-const ULB = document.getElementsByClassName("link-list");
+const link_list = document.getElementsByClassName("link-list");
 
 function addPagination(list){
    
@@ -73,13 +68,13 @@ function addPagination(list){
    const button =createButton(li);
    button.className ="active";
    button.textContent ="1";
-   ULB[0].appendChild(li);
+   link_list[0].appendChild(li);
 
    for (let i = 1 ; i < number_of_buttons; i++){
       const li = document.createElement("li");
       const button =createButton(li);
       button.textContent = i+1;
-      ULB[0].appendChild(li);
+      link_list[0].appendChild(li);
 
    }
    
@@ -96,33 +91,30 @@ function createButton(li){
 
 addPagination(data);
 
-ULB[0].addEventListener("click",(e)=>{
 
-const li_old = document.getElementsByClassName("student-item");
-const buttons =document.getElementsByTagName("button");
+ link_list[0].addEventListener("click",(e)=>{
+
+   var student_listItems = ``;
+
+student_listItems = document.getElementsByClassName("student-item");
+
+const buttons = document.getElementsByTagName("button");
+
 if (e.target.tagName ==="BUTTON"){
 
    const current_button =e.target;
    const current_page = current_button.textContent; 
-   console.log("button textContent",current_page);
 
-   const start_Index = ((current_page-1)*9)-9;
-   const end_Index = ((current_page-1)*9);
-   console.log("start_Index",start_Index);
-   console.log("end_Index",end_Index);
    for (let i= 0;i < buttons.length; i++){
-       buttons[i].classList.remove("active");
       
-          }
+       buttons[i].classList.remove("active");  
 
-    current_button.className ="active";
+          }
+          
+current_button.className ="active";
 
  showPage(data,current_page);
   
- for( let i=start_Index; i<end_Index;i++ ){
-// //  li_old[i].style.display="none";
- li_old[i].remove();
- }
 
 
  
@@ -130,7 +122,14 @@ if (e.target.tagName ==="BUTTON"){
 }
 
 
-});
+
+ });
+
+
+// 
+
+
+
 
 
 
