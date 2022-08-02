@@ -30,24 +30,26 @@ function searchBar(){
 
 function Search_by_Name(arr,input){
 
-      var name_to_search = input.toUpperCase();
-      console.log("name_to_search",name_to_search);
-      var list =[];
-      for ( let i=0 ; i< arr.length ; i++){
-      var full_name =`${arr[i].name.first} ${arr[i].name.last}` ;
-      full_name = full_name.toUpperCase(); 
-         if (full_name.includes(name_to_search)){  
-            list = create_student_list(arr[i]);
+         var name_to_search = input.toUpperCase();
+         var student_list = document.getElementsByClassName("student-list");
+         var list =[];
+         var match = false;
 
-         }//end if    
-      }//end for
+         for ( let i=0 ; i< arr.length ; i++){
+            var full_name =`${arr[i].name.first} ${arr[i].name.last}` ;
+            full_name = full_name.toUpperCase(); 
+               if (full_name.includes(name_to_search)){  
+                  list = create_student_list(arr[i]);
+                  match = true;
+               }//end if    
+         }//end for
 
-      showPage(list,1);
-      //loop through the list 
+         showPage(list,1);
+         //loop through the list 
 
-      // for (let i= 0 ; i < list.length ; i++){
-         
-      // }
+      if (match == false){
+         student_list[0].innerHTML = `<div><p>Not Match was found</p></div>`;
+      }
 
 }//end Search_by_Name
 
@@ -98,7 +100,7 @@ function showPage(list,page){
    var start_Index = (page*9)-9;
    var end_Index = (page*9);
    var HTML =``;
-   student_list = document.getElementsByClassName("student-list");
+   var student_list = document.getElementsByClassName("student-list");
    student_list[0].innerHTML = ``;
 
    if( end_Index > list.length){
