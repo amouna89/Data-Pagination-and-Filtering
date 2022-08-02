@@ -27,25 +27,67 @@ function searchBar(){
 
 /*search functionnality*/
 
-function Search_by_Name(arr,string){
 
-   var name_to_search = string.toUpperCase();
+function Search_by_Name(arr,input){
 
-for ( let i=0 ; i< arr.length ; i++){
-   var full_name =`${arr[i].name.first} ${arr[1].name.last}` ;
+      var name_to_search = input.toUpperCase();
+      console.log("name_to_search",name_to_search);
+      var list =[];
+      for ( let i=0 ; i< arr.length ; i++){
+      var full_name =`${arr[i].name.first} ${arr[i].name.last}` ;
+      full_name = full_name.toUpperCase(); 
+         if (full_name.includes(name_to_search)){  
+            list = create_student_list(arr[i]);
 
-   full_name = full_name.toUpperCase();
-   
-   if (full_name.includes(name_to_search)= true ){
-   
+         }//end if    
+      }//end for
+
+      showPage(list,1);
+      //loop through the list 
+
+      // for (let i= 0 ; i < list.length ; i++){
+         
+      // }
+
+}//end Search_by_Name
+
+function create_student_list(student){
+
+   var list= [];
+   var index= 0;  
+   list[index]= student ;
+   index++;
+   return list;
+
+
+
+
+}
+/*searching the names when keyup or pressing the search button*/
+/*taper un mot dans le input */
+
+const header =document.querySelector(".header");
+
+header.addEventListener("keyup",(e)=>{
+      var input =e.target;
       
-   }
+      if (input.tagName ==="INPUT"){
+      //   console.log(input.value);
+         Search_by_Name(data,input.value);
+      }
+
+});
+
+/*clicker sur un boutton*/
+header.addEventListener("click",(e)=>{  
+      const input = document.getElementById("search");
+      var target = e.target.tagName;
+      if( target === "IMG"){
+         Search_by_Name(data,input.value);
+      }
 
 
-}
-
-
-}
+});
 /*
 Create the `showPage` function
 This function will create and insert/append the elements needed to display a "page" of nine students
@@ -53,13 +95,15 @@ This function will create and insert/append the elements needed to display a "pa
 function showPage(list,page){
    // the start index and the end index of the list items to be displayed on the given page
 
-   const start_Index = (page*9)-9;
-   const end_Index = (page*9);
+   var start_Index = (page*9)-9;
+   var end_Index = (page*9);
    var HTML =``;
-   console.log("nombre total",list.length);
-  
    student_list = document.getElementsByClassName("student-list");
    student_list[0].innerHTML = ``;
+
+   if( end_Index > list.length){
+      end_Index = list.length;
+   }
    for (let i = start_Index; i < end_Index ; i++ ){
       HTML +=` <li class="student-item cf">
       <div class="student-details">    
