@@ -1,17 +1,11 @@
 /*
-Treehouse Techdegree:
-FSJS Project 2 - Data Pagination and Filtering
-*/
-
-/*
-For assistance:
-   Check out the "Project Resources" section of the Instructions tab: https://teamtreehouse.com/projects/data-pagination-and-filtering#instructions
-   Reach out in your Slack community: https://treehouse-fsjs-102.slack.com/app_redirect?channel=unit-2
-*/
-
-/*
 create a search bar 
 */
+
+//declaration des variables 
+var student_list = document.querySelector(".student-list");
+var link_list = document.querySelector(".link-list");
+
 
 function searchBar(){
    const h2 =document.getElementsByTagName("h2");
@@ -25,83 +19,80 @@ function searchBar(){
 //'afterend' : Après element lui-même.
 }
 
-/*search functionnality*/
+// /*search functionnality*/
+// function Search_by_Name(arr,input){
+//        //take the input value
+//          var index= 0;  
+//          var name_to_search = input.toUpperCase();
+//          var match = false;
+//          student_list.innerHTML = ``;
+
+//          for ( let i=0 ; i< arr.length ; i++){
+//             var full_name =`${arr[i].name.first} ${arr[i].name.last}` ;
+//             full_name = full_name.toUpperCase(); 
+//                if (full_name.includes(name_to_search)){  
+//                   list = create_student_list(arr[i],index);
+//                   match = true;
+//                }//end if    
+//          }//end for
+        
+//          for(let i =0 ;i<list.length;i++){
+//             console.log(list[i]);
+//          }
+//          showPage(list,1);
+//          //loop through the list 
+
+//       if (match == false){
+//          student_list.innerHTML = `<div><p>Not Match was found</p></div>`;
+//       }
+
+// }//end Search_by_Name
+
+// function create_student_list(student,index){
+
+//    var list= [];
+//    list[index]= student ;
+//    index++;
+//    return list;
 
 
-function Search_by_Name(arr,input){
-
-         var name_to_search = input.toUpperCase();
-         var student_list = document.getElementsByClassName("student-list");
-         var list =[];
-         var match = false;
-
-         for ( let i=0 ; i< arr.length ; i++){
-            var full_name =`${arr[i].name.first} ${arr[i].name.last}` ;
-            full_name = full_name.toUpperCase(); 
-               if (full_name.includes(name_to_search)){  
-                  list = create_student_list(arr[i]);
-                  match = true;
-               }//end if    
-         }//end for
-
-         showPage(list,1);
-         //loop through the list 
-
-      if (match == false){
-         student_list[0].innerHTML = `<div><p>Not Match was found</p></div>`;
-      }
-
-}//end Search_by_Name
-
-function create_student_list(student){
-
-   var list= [];
-   var index= 0;  
-   list[index]= student ;
-   index++;
-   return list;
 
 
+// }
+// /*searching the names when keyup or pressing the search button*/
+// /*taper un mot dans le input */
 
+// const header =document.querySelector(".header");
 
-}
-/*searching the names when keyup or pressing the search button*/
-/*taper un mot dans le input */
+// header.addEventListener("keyup",(e)=>{
+//       var input =e.target;   
+//       if (input.tagName ==="INPUT"){
+//       //   console.log(input.value);
+//          Search_by_Name(data,input.value);
+//       }
 
-const header =document.querySelector(".header");
+// });
 
-header.addEventListener("keyup",(e)=>{
-      var input =e.target;
-      
-      if (input.tagName ==="INPUT"){
-      //   console.log(input.value);
-         Search_by_Name(data,input.value);
-      }
+// /*clicker sur un boutton*/
+// header.addEventListener("click",(e)=>{  
+//       const input = document.getElementById("search");
+//       var target = e.target.tagName;
+//       if( target === "IMG"){
+//          Search_by_Name(data,input.value);
+//       }
 
-});
-
-/*clicker sur un boutton*/
-header.addEventListener("click",(e)=>{  
-      const input = document.getElementById("search");
-      var target = e.target.tagName;
-      if( target === "IMG"){
-         Search_by_Name(data,input.value);
-      }
-
-
-});
+//  });
 /*
 Create the `showPage` function
 This function will create and insert/append the elements needed to display a "page" of nine students
 */
 function showPage(list,page){
    // the start index and the end index of the list items to be displayed on the given page
-
    var start_Index = (page*9)-9;
    var end_Index = (page*9);
    var HTML =``;
-   var student_list = document.getElementsByClassName("student-list");
-   student_list[0].innerHTML = ``;
+   
+   student_list.innerHTML = ``;
 
    if( end_Index > list.length){
       end_Index = list.length;
@@ -118,12 +109,14 @@ function showPage(list,page){
       </div>
     </li>`;
 
-   }//end for
-  
-   student_list[0].insertAdjacentHTML('beforeend',HTML);
+   }//end for   
    // element.insertAdjacentHTML(position, text);
    // 'beforeend' : Juste à l'intérieur de l'element , après son dernier enfant.
 
+  
+   student_list.insertAdjacentHTML('beforeend',HTML);
+   //ajouter les bouttons a la page 
+   
 }//end showPage function
 
 //show the data when loading the page the first time
@@ -133,26 +126,24 @@ Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
 
-const link_list = document.getElementsByClassName("link-list");
-
 function addPagination(list){
-   
+
    const number_of_buttons = Math.ceil(list.length/9);
    const li = document.createElement("li");
    const button =createButton(li);
    button.className ="active";
    button.textContent ="1";
-   link_list[0].appendChild(li);
+   link_list.appendChild(li);
 
    for (let i = 1 ; i < number_of_buttons; i++){
       const li = document.createElement("li");
       const button =createButton(li);
       button.textContent = i+1;
-      link_list[0].appendChild(li);
+      link_list.appendChild(li);
 
    }
    
-
+ 
 }
 function createButton(li){
  
@@ -163,7 +154,7 @@ function createButton(li){
 
 }
 
- link_list[0].addEventListener("click",(e)=>{
+ link_list.addEventListener("click",(e)=>{
 
 const buttons = document.getElementsByTagName("button");
 if (e.target.tagName ==="BUTTON"){
@@ -183,5 +174,5 @@ current_button.className ="active";
 // Call functions
 
 showPage(data,1);//load the first page
-addPagination(data);//add buttons to the page 
+addPagination(data);//
 searchBar();//add search Bar the page 
